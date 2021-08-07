@@ -9,7 +9,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
         {name: "Gourgeist", types:['Grass',' Ghost'], height: 1.1},
     ];
 
-//Add pokemon objects to array
+    //Add pokemon objects to array
     function add(item) {
         if (item.hasOwnProperty('name', 'types', 'height')) { //Sanitizes input (kinda)
             return ( //Checks for object in function
@@ -20,40 +20,33 @@ let pokeRepo = (function() { //Protects dex list for future additions
             console.log('Invalid Entry');
         }
     }
-//Fetches all the pokemon objects from the array
+
+    //Fetches all the pokemon objects from the array
     function getAll() {
         return pokemonList;
     }
 
+    // Populates side-bar with pokemon names.
+    function addListItem(pokemon) {
+        let sideList = document.querySelector('.pkmn-list');
+        let listItem = document.createElement('li');
+        let btn = document.createElement('button');
+        btn.innerText = pokemon.name;
+        btn.classList.add('bar-buttons');
+        listItem.appendChild(btn)
+        sideList.appendChild(listItem);
+    }
+
     return {
         add: add,
-        getAll: getAll
+        getAll: getAll,
+        addListItem: addListItem,
     };
+
 })();
 
-// Populates page with entries into the array with needed tags
 
-pokeRepo.getAll().forEach(dexDetails);
-
-function dexDetails(list) {
-   document.write(
-    '<p class="entry">Name<span class="name">: '
-    + list.name
-    + ' </span> |'
-    + ' Types: <span class="types">' 
-    + list.types 
-    + '</span> | Height: <span class="height">' 
-    + list.height 
-    + '</span>m.' 
-    );
-    // Puts a little star next to pokemon over a metre
-    if (list.height > 1) {
-        document.write(' <span title="Big guy!">⭐</span></p>');
-    } else {
-        document.write('</p>');
-    }
-}
-
-// Sanitizes add function
-
+pokeRepo.getAll().forEach(function (pokemon) {
+    pokeRepo.addListItem(pokemon);
+});
 

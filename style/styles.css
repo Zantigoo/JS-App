@@ -32,3 +32,27 @@ p {
     }
     
 }
+
+/* Sidebar Styling */
+
+li {
+    text-decoration: none;
+    list-style-type: none;
+    padding: 10px 0px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.bar-buttons {
+    border: none;
+    background: none;
+    border-bottom: black 2px solid;
+    font-size: 1.4rem;
+}
+
+.bar-buttons:active {
+    background: blanchedalmond;
+
+}
