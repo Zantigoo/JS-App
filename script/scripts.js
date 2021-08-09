@@ -28,13 +28,18 @@ let pokeRepo = (function() { //Protects dex list for future additions
 
     // Populates side-bar with pokemon names.
     function addListItem(pokemon) {
-        let sideList = document.querySelector('.pkmn-list');
+        let sideList = document.querySelector('#pkmn-list');
         let listItem = document.createElement('li');
         let btn = document.createElement('button');
         btn.innerText = pokemon.name;
         btn.classList.add('bar-buttons');
-        listItem.appendChild(btn)
+        btn.addEventListener('click', showDetails);
+        listItem.appendChild(btn);
         sideList.appendChild(listItem);
+    }
+
+    function showDetails(pokemon) {
+        console.log(pokemon);
     }
 
     return {
@@ -50,3 +55,20 @@ pokeRepo.getAll().forEach(function (pokemon) {
     pokeRepo.addListItem(pokemon);
 });
 
+let navi = (function() {
+    function open() { //Open bar and push content
+        document.getElementById('pkmn-list').style.width = "150px";
+        document.getElementById('main').style.marginLeft = "150px";
+    }
+
+    function close() { //Close bar and pull content
+        document.getElementById('pkmn-list').style.width = "0";
+        document.getElementById('main').style.marginLeft = "0";
+    }
+
+    return {
+        open: open,
+        close: close,
+    };
+
+})();
