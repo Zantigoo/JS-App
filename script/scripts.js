@@ -33,7 +33,9 @@ let pokeRepo = (function() { //Protects dex list for future additions
         let btn = document.createElement('button');
         btn.innerText = pokemon.name;
         btn.classList.add('bar-buttons');
-        btn.addEventListener('click', showDetails);
+        btn.addEventListener('click', function() {
+            showDetails(pokemon);
+        });
         listItem.appendChild(btn);
         sideList.appendChild(listItem);
     }
