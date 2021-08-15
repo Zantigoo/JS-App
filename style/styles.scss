@@ -5,6 +5,7 @@
 * {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    --transition: width 100ms ease-in;
 }
 
 /* Main Content Styling */
@@ -22,6 +23,7 @@ body {
 
 #main {
     margin-left: 150px;
+    transition: var(--transition);
 }
 
 /* Sidebar Styling */

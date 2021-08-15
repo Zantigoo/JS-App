@@ -5,6 +5,7 @@
 * {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    --transpeed: 200ms;
 }
 
 .card {
@@ -19,7 +20,8 @@ body {
 }
 
 #main {
-    margin-left: 150px;
+    margin-left: 180px;
+    transition: var(--transpeed);
 }
 
 /* Sidebar Styling */
@@ -34,13 +36,6 @@ li {
     list-style-type: none;
 }
 
-li:first-child:hover {
-    background: none;
-}
-
-li:first-child{
-    float: right;
-}
 
 .poke-entry {
     padding: 10px 20%;
@@ -56,7 +51,7 @@ button {
 
 #pkmn-list {
     background: transparent;
-    width: 150px;
+    width: 180px;
     height: 100vh;
     position: fixed;
     margin-top: 0;
@@ -64,7 +59,20 @@ button {
     left: 0;
     overflow-x: hidden;
     border-right: solid black 5px;
+    transition: var(--transpeed);
 }
+
+#pkmn-list::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  
+#pkmn-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+#pkmn-list::-webkit-scrollbar-thumb {
+    background: black;
+  }
 
 
 .bar-buttons {
@@ -74,6 +82,7 @@ button {
     list-style-type: none;
     padding: 20px 20%;
     background: transparent;
+    text-transform: uppercase;
 }
 
 .bar-buttons:hover {
@@ -81,6 +90,6 @@ button {
 }
 
 .close-btn {
+    margin: 10px;
     color: black;
 }
-
