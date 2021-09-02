@@ -6,6 +6,7 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     --transpeed: 200ms;
+    --bg-color: lightgray;
 }
 
 .card {
@@ -15,7 +16,7 @@
 }
 
 body {
-    background-color: lightgray;
+    background-color: var(--bg-color);
     font-size: 1rem;
 }
 
@@ -23,6 +24,12 @@ body {
     margin-left: 180px;
     transition: var(--transpeed);
 }
+
+.close-btn {
+    margin: 10px;
+    color: black;
+}
+
 
 /* Sidebar Styling */
 
@@ -63,7 +70,7 @@ button {
 }
 
 #pkmn-list::-webkit-scrollbar {
-    width: 0.25rem;
+    width: 0.50rem;
   }
   
 #pkmn-list::-webkit-scrollbar-track {
@@ -89,7 +96,71 @@ button {
     text-shadow: 3px 3px 10px;
 }
 
-.close-btn {
-    margin: 10px;
-    color: black;
+/* Modal Styling */
+
+#modal-container {
+    position: fixed;
+    padding: 20px;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999; 
+    overflow: auto; 
+    display: grid;
+    text-align: center;
 }
+
+.modal {
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: var(--bg-color);
+    padding: 15px;
+    width: 100%;
+    max-width: 700px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  
+
+  .modal-close {
+    float: right;
+    -webkit-appearance: none;
+    border: 0;
+    background: none;
+    color: #777;
+    text-decoration: underline;
+  }
+  
+  .modal h1 {
+    margin-top: 0;
+  }
+  
+  .modal p {
+    margin-bottom: 0;
+  }
+  
+  #modal-container {
+    display: none;
+  }
+  
+  #modal-container.visible {
+    display: block;
+  }
+
+  .pkmn-name {
+    grid-column: 1 / 4;
+  }
+  
+  .pkmn-name::first-letter {
+    text-transform: capitalize;
+  }
+  
+  .pkmn-art {
+    width: 75%;
+    height: auto;
+  }
+  
