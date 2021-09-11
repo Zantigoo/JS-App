@@ -5,37 +5,68 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Pokedex</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="style/styles.css">
     </head>
-    <body> 
-        <ul id="pkmn-list">
-        </ul>
-        <main id="main">
-            <a href="javascript:void(0)" onclick="navi.toggle()" class="close-btn" id="close-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
-                    <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
-                </svg>
-            </a>
-            <div>
-                
-            </div>
-           <div id="modal-container">
-               <div class="modal">
-                    <h1 class="pkmn-name"></h1>
-                   <div class="image-container">
-                       <img src="" alt="" class="pkmn-art">
-                    </div>
-                    <div class="text-container">
-                        <p class="pkmn-weight"></p>
-                        <p class="pkmn-height"></p>
-                        <ul class="type-list"></ul>
-                        <ul class="ability-list"></ul>
-                    </div>
+    <body>
+        <div class="container">
+            <ul id="pkmn-list">
+            </ul>
+            <main id="main">
+                <a href="javascript:void(0)" onclick="navi.toggle()" class="close-btn" id="close-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-left" viewBox="0 0 16 16">
+                        <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
+                    </svg>
+                </a>
+                <div>
+                    
                 </div>
-           </div>
-        </main>
-        <script src="script/fetch.js"></script>
-        <script src="script/polyfill.js"></script>
-        <script src="script/scripts.js"></script>
+            <div id="modal-container">
+                <div class="modal">
+                        <h1 class="pkmn-name"></h1>
+                    <div class="image-container">
+                        <img src="" alt="" class="pkmn-art">
+                        </div>
+                        <div class="text-container">
+                            <p class="pkmn-weight"></p>
+                            <p class="pkmn-height"></p>
+                            <ul class="type-list"></ul>
+                            <ul class="ability-list"></ul>
+                        </div>
+                    </div>
+            </div>
+            
+            </main>
+        </div>
+        <!--JQuery-->
+        <script 
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+        </script>
+        <!--Popper-->
+        <script 
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+            crossorigin="anonymous">
+        </script>
+        <!--Bootstrap-->
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+            crossorigin="anonymous">
+        </script>
+        <!--Fetch fallback-->
+        <script 
+        src="script/fetch.js">
+        </script>
+        <!--Polyfill fallback-->
+        <script 
+        src="script/polyfill.js">
+        </script>
+        <!--Pokedex functions-->
+        <script 
+        src="script/scripts.js">
+        </script>
     </body>
 </html>

@@ -74,7 +74,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
             item.weight = details.weight;
             item.types = details.types;
             item.abilities = details.abilities;
-            item.artworkUrl = details.sprites.other.dream_world.front_default;
+            item.artworkUrl = details.sprites.other.official-artwork.front_default;
         }).catch(function(e) {
             console.error(e);
         })
