@@ -1,19 +1,8 @@
-// Sets list of Pokemon as array
-// Array set as {name:"", types:['',''], height:#}
-
-let pokeRepo = (function() { //Protects dex list for future additions
+let pokeRepo = (function() { 
     let pokemonList = [];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
-//Gotta cut this during linting
-    let oldpokemonList = [ 
-        {name: "Mimikyu", types:['Fairy',' Ghost'], height: 0.2},
-        {name: "Shedinja", types:['Bug',' Ghost'], height: 0.8},
-        {name: "Gengar", types:['Poison',' Ghost'], height:1.5},
-        {name: "Gourgeist", types:['Grass',' Ghost'], height: 1.1},
-    ];
-
-//Add pokemon objects to array
+    //Add pokemon objects to array
     function add(item) {
         if (item.hasOwnProperty('name', 'types', 'height')) { //Sanitizes input (kinda)
             return ( //Checks for object in function
@@ -25,18 +14,23 @@ let pokeRepo = (function() { //Protects dex list for future additions
         }
     }
 
-//Fetches all the pokemon objects from the array
+    //Fetches all the pokemon objects from the array
     function getAll() {
         return pokemonList;
     }
 
-    // Populates side-bar with pokemon names.
+    // Populates side-bar with pokemon name & sprite.
     function addListItem(pokemon) {
+        let url = pokemon.detailsUrl;
         let sideList = document.querySelector('#pkmn-list');
         let listItem = document.createElement('li');
         let btn = document.createElement('button');
         btn.innerText = pokemon.name;
+        btn.classList.add('list-group-item');
+        btn.classList.add('btn');
         btn.classList.add('bar-buttons');
+        btn.setAttribute('data-toggle','modal');
+        btn.setAttribute('data-target','#exampleModal');
         btn.addEventListener('click', () => {
             showDetails(pokemon);
         });
@@ -55,6 +49,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
                     detailsUrl: item.url
                 };
                 add(pokemon);
+                console.log(pokemon);
             });
         }).catch(function(e) {
             console.log(e);
@@ -74,10 +69,30 @@ let pokeRepo = (function() { //Protects dex list for future additions
             item.weight = details.weight;
             item.types = details.types;
             item.abilities = details.abilities;
-            item.artworkUrl = details.sprites.other.official-artwork.front_default;
         }).catch(function(e) {
-            console.error(e);
+            console.log(e);
         })
+    }
+
+    function showModal(item) {
+        let modalBody = $(".modal-body");
+        let modalTitle = $(".modal-title");
+        
+
+        modalTitle.empty();
+        modalBody.empty();
+
+        let nameElement = $("<h1>"+item.name+"</h1>");
+        let imageElementFront = $('<img class="modal-img" style="width:50%">');
+        imageElementFront.attr("src", item.imageUrl);
+        let heightElement = $("<p>"+"height : "+item.height+"</p>");
+        let weightElement = $("<p>"+"weight : "+item.weight+"</p>");
+        let typesElement = $("<p>"+"types : "+item.types+"</p>");
+
+        modalTitle.append(nameElement);
+        modalBody.append(imageElementFront);
+        modalBody.append(heightElement);
+        modalBody.append(weightElement);
     }
 
     function showDetails(selectedPokemon) {
@@ -86,73 +101,6 @@ let pokeRepo = (function() { //Protects dex list for future additions
         });
     }
     
-    //Modal Stuff ===============================================
-    let modalContainer = document.querySelector('#modal-container');
-    function showModal(selectedPokemon) {
-
-        let pokemonTypes= modalContainer.querySelector(".type-list")
-        let pokemonName = modalContainer.querySelector(".pkmn-name")
-        let pokemonAbilities = modalContainer.querySelector(".ability-list")
-        let pokemonWeight = modalContainer.querySelector(".pkmn-weight")
-        let pokemonHeight = modalContainer.querySelector(".pkmn-height")
-        let pokemonArt = modalContainer.querySelector(".pkmn-art")
-
-
-        //Name & Artwork
-
-        pokemonName.innerText = selectedPokemon.name;
-
-        pokemonArt.setAttribute('src', selectedPokemon.artworkUrl);
-        pokemonArt.setAttribute('alt','Artwork of '+selectedPokemon.name+'.')
-
-        //Types & Abilities 
-
-        pokemonTypes.innerHTML = '';
-        selectedPokemon.types.forEach((type) => {
-          console.log(type.type.name);
-          let listItem = document.createElement("li");
-          listItem.innerText = type.type.name;
-          pokemonTypes.appendChild(listItem);
-        });
-
-        pokemonAbilities.innerHTML = '';
-        selectedPokemon.abilities.forEach((ability) => {
-            console.log(ability.ability.name);
-            let listItem = document.createElement("li");
-            listItem.innerText = ability.ability.name;
-            pokemonAbilities.appendChild(listItem);
-        });
-
-        //Height & Weight
-
-        pokemonWeight.innerText = selectedPokemon.weight / 10 + ' KG'
-        pokemonHeight.innerText = selectedPokemon.height / 10 + " M"
-
-        //Close Button
-        let closeButtonElement = document.createElement('button');
-        closeButtonElement.classList.add('modal-close');
-        closeButtonElement.innerText = 'Close';
-        closeButtonElement.addEventListener('click', closeModal);
-
-        // Presto, now you can see it.
-        modalContainer.classList.add('visible');
-    }
-    function closeModal() {
-        modalContainer.classList.remove('visible');
-    }
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalContainer.classList.contains('visible')){
-            closeModal();
-        }
-    });
-    modalContainer.addEventListener('click', (e) => {
-        let target = e.target;
-        if (target === modalContainer) {
-            closeModal();
-        }
-    })
-    //end of modal stuff =======================================
-
     return {
         add: add,
         getAll: getAll,
