@@ -99,22 +99,23 @@ button {
 
 #card {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(4, auto);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   }
+    
   
-  .pkmn-name { grid-area: 1 / 1 / 2 / 4; }
-  .pkmn-num { grid-area: 1 / 4 / 2 / 5; }
-  .pkmn-art { grid-area: 2 / 2 / 4 / 4; }
-  .div5 { grid-area: 2 / 4 / 3 / 5; }
-  .div6 { grid-area: 3 / 4 / 4 / 5; }
-  .div4 { grid-area: 4 / 1 / 5 / 5; }
+.pkmn-name { grid-area: 1 / 1 / 2 / 4; }
+.pkmn-num { grid-area: 1 / 4 / 2 / 5; }
+.pkmn-art { grid-area: 2 / 1 / 4 / 4; }
+.stats { grid-area: 2 / 4 / 3 / 5; }
+.size { grid-area: 3 / 4 / 4 / 5; }
+
 
 .pkmn-name {
   font-size: 5rem;
-  justify-self: center ;
+  text-align: center;
 }
 .pkmn-name::first-letter {
   text-transform: uppercase;
@@ -123,3 +124,84 @@ button {
 .pkmn-num {
   font-size:3rem;
 }
+
+.bug {
+  --type-color: #A6B91A;
+}
+
+.dark {
+  --type-color: #705746;
+}
+
+.dragon {
+  --type-color: #6F35FC;
+}
+
+.electric {
+  --type-color: #F7D02C; 
+}
+
+.fairy {
+  --type-color: #D685AD;
+}
+
+.fighting {
+  --type-color: #C22E28;
+}
+
+.fire {
+  --type-color: #EE8130;
+}
+
+.flying {
+  --type-color: #A98FF3;
+}
+
+.ghost {
+  --type-color: #735797;
+}
+
+.grass {
+  --type-color: #7AC74C;
+}
+
+.ground {
+  --type-color: #E2BF65;
+}
+
+.ice {
+  --type-color: #96D9D6;
+}
+
+.normal {
+  --type-color: #A8A77A;
+}
+
+.poison {
+  --type-color: #A33EA1;
+}
+
+.psychic {
+  --type-color: #F95587;
+}
+
+.rock {
+  --type-color: #B6A136;
+}
+
+.steel {
+  --type-color: #B7B7CE;
+}
+
+.water {
+  --type-color: #6390F0;
+}
+
+.type-img {
+  width: 80px;
+  margin: 10px;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: var(--type-color);
+}
+
