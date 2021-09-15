@@ -3,7 +3,7 @@
 
 let pokeRepo = (function() { //Protects dex list for future additions
     let pokemonList = [];
-    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+    let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
 //Gotta cut this during linting
     let oldpokemonList = [ 
@@ -32,16 +32,27 @@ let pokeRepo = (function() { //Protects dex list for future additions
 
     // Populates side-bar with pokemon names.
     function addListItem(pokemon) {
-        let sideList = document.querySelector('#pkmn-list');
-        let listItem = document.createElement('li');
-        let btn = document.createElement('button');
-        btn.innerText = pokemon.name;
-        btn.classList.add('bar-buttons');
-        btn.addEventListener('click', () => {
-            showDetails(pokemon);
+        pokeRepo.loadDetails(pokemon).then(function() {
+            let sideList = document.querySelector('#pkmn-list');
+            let listItem = document.createElement('li');
+            let btn = document.createElement('button');
+            let sprite = document.createElement('img');
+            btn.innerText = pokemon.name;
+            sprite.setAttribute('src', pokemon.imageUrl);
+            sprite.classList.add('list-sprite');
+            listItem.classList.add('poke-entry');
+            btn.classList.add('bar-buttons');
+            btn.addEventListener('click', () => {
+                showDetails(pokemon);
+            });
+            sprite.addEventListener('click', () => {
+                showDetails(pokemon);
+            });
+
+            listItem.appendChild(sprite);
+            listItem.appendChild(btn);
+            sideList.appendChild(listItem);
         });
-        listItem.appendChild(btn);
-        sideList.appendChild(listItem);
     }
 
    
@@ -74,7 +85,8 @@ let pokeRepo = (function() { //Protects dex list for future additions
             item.weight = details.weight;
             item.types = details.types;
             item.abilities = details.abilities;
-            item.artworkUrl = details.sprites.other.dream_world.front_default;
+            item.artworkUrl = details.sprites.other['official-artwork']['front_default'];
+            item.number = '#'+details.game_indices['19'].game_index;
         }).catch(function(e) {
             console.error(e);
         })
@@ -86,8 +98,8 @@ let pokeRepo = (function() { //Protects dex list for future additions
         });
     }
     
-    //Modal Stuff ===============================================
-    let modalContainer = document.querySelector('#modal-container');
+    //Repurposed Modal code to display card info ===============================================
+    let modalContainer = document.querySelector('#card');
     function showModal(selectedPokemon) {
 
         let pokemonTypes= modalContainer.querySelector(".type-list")
@@ -96,12 +108,12 @@ let pokeRepo = (function() { //Protects dex list for future additions
         let pokemonWeight = modalContainer.querySelector(".pkmn-weight")
         let pokemonHeight = modalContainer.querySelector(".pkmn-height")
         let pokemonArt = modalContainer.querySelector(".pkmn-art")
+        let pokemonNum = modalContainer.querySelector(".pkmn-num")
 
-
-        //Name & Artwork
+        //Name & Artwork & number
 
         pokemonName.innerText = selectedPokemon.name;
-
+        pokemonNum.innerText = selectedPokemon.number;
         pokemonArt.setAttribute('src', selectedPokemon.artworkUrl);
         pokemonArt.setAttribute('alt','Artwork of '+selectedPokemon.name+'.')
 
@@ -111,6 +123,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
         selectedPokemon.types.forEach((type) => {
           console.log(type.type.name);
           let listItem = document.createElement("li");
+          listItem.classList.add('type')
           listItem.innerText = type.type.name;
           pokemonTypes.appendChild(listItem);
         });
@@ -119,6 +132,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
         selectedPokemon.abilities.forEach((ability) => {
             console.log(ability.ability.name);
             let listItem = document.createElement("li");
+            listItem.classList.add('ability');
             listItem.innerText = ability.ability.name;
             pokemonAbilities.appendChild(listItem);
         });
@@ -128,29 +142,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
         pokemonWeight.innerText = selectedPokemon.weight / 10 + ' KG'
         pokemonHeight.innerText = selectedPokemon.height / 10 + " M"
 
-        //Close Button
-        let closeButtonElement = document.createElement('button');
-        closeButtonElement.classList.add('modal-close');
-        closeButtonElement.innerText = 'Close';
-        closeButtonElement.addEventListener('click', closeModal);
-
-        // Presto, now you can see it.
-        modalContainer.classList.add('visible');
-    }
-    function closeModal() {
-        modalContainer.classList.remove('visible');
-    }
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalContainer.classList.contains('visible')){
-            closeModal();
-        }
-    });
-    modalContainer.addEventListener('click', (e) => {
-        let target = e.target;
-        if (target === modalContainer) {
-            closeModal();
-        }
-    })
+    };
     //end of modal stuff =======================================
 
     return {
@@ -177,15 +169,15 @@ let navi = (function() {
     let state = "open"
     
     let open = () => { //Open bar and push content
-        document.getElementById('pkmn-list').style.width = "180px";
-        document.getElementById('main').style.marginLeft = "180px";
+        document.getElementById('pkmn-list').style.width = "250px";
+        document.getElementById('main').style.marginLeft = "280px";
         return state = "open";  
         
     }
 
     let close = () => { //Close bar and pull content
         document.getElementById('pkmn-list').style.width = "0";
-        document.getElementById('main').style.marginLeft = "0";
+        document.getElementById('main').style.marginLeft = "30px";
         return state = "close";
     }
 
