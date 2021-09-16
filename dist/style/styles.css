@@ -6,13 +6,15 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     --transpeed: 200ms;
-    --bg-color: lightgray;
+    --bg-color: #222224;
+    --text-color:#f0f0f0;
+    --shadow-color:rgba(0, 0, 0, 0.933) ; 
 }
 
 
 body {
-    background-color: var(--bg-color);
-    font-size: 1rem;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1020%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='rgba(34%2c 34%2c 36%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c234 C 192%2c321.6 576%2c684.4 960%2c672 C 1344%2c659.6 1728%2c272 1920%2c172L1920 1080L0 1080z' fill='rgba(238%2c 21%2c 21%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1020'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  font-size: 1rem;
 }
 
 #main {
@@ -22,7 +24,29 @@ body {
 }
 
 .close-btn {
-    color: black;
+    color: var(--text-color);
+    transition: var(--transpeed);
+}
+
+#arrow {
+  transition: var(--transpeed);
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type=text] {
+  margin-right: 50px;
+  width: 50%;
+  border-radius: 30px;
+  border: 3px solid;
+  padding: 10px;
+}
+
+input:focus {
+  outline: none;
 }
 
 /* Sidebar Styling */
@@ -40,11 +64,17 @@ li {
     cursor: pointer;
     display: flex;
     margin-bottom: 10px;
+    padding: 10px;
 }
 
+.poke-entry:hover {
+  background-color: rgba(255, 255, 255, 0.096);
+}
 
 .list-sprite {
   width:30%;
+  background:	#ee151542;
+  border-radius: 50%;
 }
 
 
@@ -55,7 +85,7 @@ button {
 }
 
 #pkmn-list {
-    background: rgb(185, 184, 184);
+    background:#363333c2;
     width: 250px;
     height: 100vh;
     margin: 0;
@@ -82,6 +112,7 @@ button {
 
 
 .bar-buttons {
+    color: var(--text-color);
     border: none;
     background: none;
     text-decoration: none;
@@ -91,16 +122,13 @@ button {
     text-transform: uppercase;
 }
 
-.bar-buttons:hover {
-    text-shadow: 3px 3px 10px;
-}
 
 /* Pokemon Entry Styling */
 
 #card {
   display: grid;
   grid-template-columns: repeat(4, auto);
-  grid-template-rows: repeat(4, auto);
+  grid-template-rows: repeat(3, auto);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   }
@@ -112,10 +140,17 @@ button {
 .stats { grid-area: 2 / 4 / 3 / 5; }
 .size { grid-area: 3 / 4 / 4 / 5; }
 
+.pkmn-art {
+  max-width: 80vh;
+  margin: 0 auto;
+  filter: drop-shadow(1rem 2rem 1rem rgba(2, 2, 2, 0.8));
+}
 
 .pkmn-name {
   font-size: 5rem;
   text-align: center;
+  color: var(--text-color);
+  text-shadow: 5px 5px 3px var(--shadow-color);
 }
 .pkmn-name::first-letter {
   text-transform: uppercase;
@@ -123,8 +158,40 @@ button {
 
 .pkmn-num {
   font-size:3rem;
+  color: var(--text-color);
+  text-shadow: 5px 5px 3px var(--shadow-color);
 }
 
+.type-img {
+  width: 64px;
+  height: 64px;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  background:  var(--type-color);
+  box-shadow: 5px 5px 3px var(--shadow-color);
+}
+
+.ability-list li {
+  text-transform: capitalize;
+  margin-top: 30px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  color: var(--text-color);
+  text-shadow: 5px 5px 3px var(--shadow-color);
+}
+
+.size {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  text-shadow: 5px 5px 3px var(--shadow-color);
+}
+
+.type-list {
+  display: flex;
+}
+
+/* Styling for Types */
 .bug {
   --type-color: #A6B91A;
 }
@@ -195,13 +262,5 @@ button {
 
 .water {
   --type-color: #6390F0;
-}
-
-.type-img {
-  width: 80px;
-  margin: 10px;
-  padding: 5px;
-  border-radius: 50%;
-  background-color: var(--type-color);
 }
 

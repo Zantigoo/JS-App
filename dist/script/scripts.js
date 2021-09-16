@@ -87,6 +87,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
             item.abilities = details.abilities;
             item.artworkUrl = details.sprites.other['official-artwork']['front_default'];
             item.number = '#'+details.game_indices['19'].game_index;
+            item.index = details.game_indices['19'].version.url;
         }).catch(function(e) {
             console.error(e);
         })
@@ -99,6 +100,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
     }
     
     //Repurposed Modal code to display card info ===============================================
+    
     let modalContainer = document.querySelector('#card');
     function showModal(selectedPokemon) {
 
@@ -241,7 +243,6 @@ let pokeRepo = (function() { //Protects dex list for future additions
         pokemonHeight.innerText = selectedPokemon.height / 10 + " M"
 
     };
-    //end of modal stuff =======================================
 
     return {
         add: add,
@@ -263,12 +264,13 @@ pokeRepo.loadList().then(function() {
 
 let navi = (function() {
 
-    
+    let arrow = document.getElementById('arrow');
     let state = "open"
     
     let open = () => { //Open bar and push content
         document.getElementById('pkmn-list').style.width = "250px";
         document.getElementById('main').style.marginLeft = "280px";
+        arrow.style.transform = "rotate(0deg)";
         return state = "open";  
         
     }
@@ -276,6 +278,7 @@ let navi = (function() {
     let close = () => { //Close bar and pull content
         document.getElementById('pkmn-list').style.width = "0";
         document.getElementById('main').style.marginLeft = "30px";
+        arrow.style.transform = "rotate(180deg)";
         return state = "close";
     }
 
