@@ -1,31 +1,13 @@
-// Sets list of Pokemon as array
-// Array set as {name:"", types:['',''], height:#}
 
-let pokeRepo = (function() { //Protects dex list for future additions
+let pokeRepo = (function() { 
     let pokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
-//Gotta cut this during linting
-    let oldpokemonList = [ 
-        {name: "Mimikyu", types:['Fairy',' Ghost'], height: 0.2},
-        {name: "Shedinja", types:['Bug',' Ghost'], height: 0.8},
-        {name: "Gengar", types:['Poison',' Ghost'], height:1.5},
-        {name: "Gourgeist", types:['Grass',' Ghost'], height: 1.1},
-    ];
 
-//Add pokemon objects to array
     function add(item) {
-        if (item.hasOwnProperty('name', 'types', 'height')) { //Sanitizes input (kinda)
-            return ( //Checks for object in function
-                typeof(item) == 'object' ? 
-                pokemonList.push(item) : 'Invalid entry'
-            );
-        } else {
-            console.log('Invalid Entry');
-        }
+        if (typeof(item) == 'object' ) pokemonList.push(item)
     }
 
-//Fetches all the pokemon objects from the array
     function getAll() {
         return pokemonList;
     }
@@ -72,10 +54,9 @@ let pokeRepo = (function() { //Protects dex list for future additions
         })
     }
     
-    
     function loadDetails(item) {
         let url = item.detailsUrl;
-        let name = item.name
+        let name = item.name;
         return fetch(url).then(function (response) {
             return response.json();
         }).then(function (details) {
@@ -95,22 +76,22 @@ let pokeRepo = (function() { //Protects dex list for future additions
 
     function showDetails(selectedPokemon) {
         loadDetails(selectedPokemon).then(function () {
-            showModal(selectedPokemon);
+            showcard(selectedPokemon);
         });
     }
     
-    //Repurposed Modal code to display card info ===============================================
+    //Card display
     
-    let modalContainer = document.querySelector('#card');
-    function showModal(selectedPokemon) {
+    let cardContainer = document.querySelector('#card');
+    function showcard(selectedPokemon) {
 
-        let pokemonTypes= modalContainer.querySelector(".type-list")
-        let pokemonName = modalContainer.querySelector(".pkmn-name")
-        let pokemonAbilities = modalContainer.querySelector(".ability-list")
-        let pokemonWeight = modalContainer.querySelector(".pkmn-weight")
-        let pokemonHeight = modalContainer.querySelector(".pkmn-height")
-        let pokemonArt = modalContainer.querySelector(".pkmn-art")
-        let pokemonNum = modalContainer.querySelector(".pkmn-num")
+        let pokemonTypes= cardContainer.querySelector(".type-list");
+        let pokemonName = cardContainer.querySelector(".pkmn-name");
+        let pokemonAbilities = cardContainer.querySelector(".ability-list");
+        let pokemonWeight = cardContainer.querySelector(".pkmn-weight");
+        let pokemonHeight = cardContainer.querySelector(".pkmn-height");
+        let pokemonArt = cardContainer.querySelector(".pkmn-art");
+        let pokemonNum = cardContainer.querySelector(".pkmn-num");
 
 
         //Name & Artwork & number
@@ -118,7 +99,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
         pokemonName.innerText = selectedPokemon.name;
         pokemonNum.innerText = selectedPokemon.number;
         pokemonArt.setAttribute('src', selectedPokemon.artworkUrl);
-        pokemonArt.setAttribute('alt','Artwork of '+selectedPokemon.name+'.')
+        pokemonArt.setAttribute('alt','Artwork of ' + selectedPokemon.name + '.')
 
         //Types & Abilities 
 
@@ -128,12 +109,12 @@ let pokeRepo = (function() { //Protects dex list for future additions
             let typesvg = document.createElement('img');
             switch (type.type.name) {
                 case 'water':
-                    svg = 'img/water.svg'
+                    svg = 'img/water.svg';
                     typesvg.classList.add('water');
                     typesvg.classList.add('type-img');
                     break;
                 case 'bug':
-                    svg = 'img/bug.svg'
+                    svg = 'img/bug.svg';
                     typesvg.classList.add('bug');
                     typesvg.classList.add('type-img');
                     break;
@@ -223,7 +204,7 @@ let pokeRepo = (function() { //Protects dex list for future additions
             }
             let listItem = document.createElement("li");
             typesvg.setAttribute('src', svg );
-            typesvg.setAttribute('alt', type.type.name+' type pokemon');
+            typesvg.setAttribute('alt', type.type.name + ' type pokemon');
             pokemonTypes.appendChild(listItem);
             listItem.appendChild(typesvg);
         });
@@ -239,8 +220,8 @@ let pokeRepo = (function() { //Protects dex list for future additions
 
         //Height & Weight
 
-        pokemonWeight.innerText = selectedPokemon.weight / 10 + ' KG'
-        pokemonHeight.innerText = selectedPokemon.height / 10 + " M"
+        pokemonWeight.innerText = selectedPokemon.weight / 10 + ' KG';
+        pokemonHeight.innerText = selectedPokemon.height / 10 + " M";
 
     };
 
@@ -254,12 +235,13 @@ let pokeRepo = (function() { //Protects dex list for future additions
 
 })();
 
-
 pokeRepo.loadList().then(function() {
-    pokeRepo.getAll().forEach(function (pokemon) {
-        pokeRepo.addListItem(pokemon);
-    });
+    for (let i = 0; i < pokeRepo.getAll().length; i++) {
+        const element = pokeRepo.getAll()[i];
+        setTimeout(function(){pokeRepo.addListItem(element)},500);
+    }
 });
+
 
 
 let navi = (function() {
@@ -291,8 +273,6 @@ let navi = (function() {
                console.log('close')
         }
     }
-
-//Replace with CSS classes at some point
 
     return {
         toggle: toggle,
