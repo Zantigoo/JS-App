@@ -85,13 +85,13 @@ let pokeRepo = (function() {
     let cardContainer = document.querySelector('#card');
     function showcard(selectedPokemon) {
 
-        let pokemonTypes= cardContainer.querySelector(".type-list");
-        let pokemonName = cardContainer.querySelector(".pkmn-name");
-        let pokemonAbilities = cardContainer.querySelector(".ability-list");
-        let pokemonWeight = cardContainer.querySelector(".pkmn-weight");
-        let pokemonHeight = cardContainer.querySelector(".pkmn-height");
-        let pokemonArt = cardContainer.querySelector(".pkmn-art");
-        let pokemonNum = cardContainer.querySelector(".pkmn-num");
+        let pokemonTypes= cardContainer.querySelector('.type-list');
+        let pokemonName = cardContainer.querySelector('.pkmn-name');
+        let pokemonAbilities = cardContainer.querySelector('.ability-list');
+        let pokemonWeight = cardContainer.querySelector('.pkmn-weight');
+        let pokemonHeight = cardContainer.querySelector('.pkmn-height');
+        let pokemonArt = cardContainer.querySelector('.pkmn-art');
+        let pokemonNum = cardContainer.querySelector('.pkmn-num');
 
 
         //Name & Artwork & number
@@ -105,7 +105,6 @@ let pokeRepo = (function() {
 
         pokemonTypes.innerHTML = '';
         selectedPokemon.types.forEach((type) => {
-            console.log(type.type.name);
             let typesvg = document.createElement('img');
             switch (type.type.name) {
                 case 'water':
@@ -202,7 +201,7 @@ let pokeRepo = (function() {
                     type.type.name;
                     break;
             }
-            let listItem = document.createElement("li");
+            let listItem = document.createElement('li');
             typesvg.setAttribute('src', svg );
             typesvg.setAttribute('alt', type.type.name + ' type pokemon');
             pokemonTypes.appendChild(listItem);
@@ -211,8 +210,7 @@ let pokeRepo = (function() {
 
         pokemonAbilities.innerHTML = '';
         selectedPokemon.abilities.forEach((ability) => {
-            console.log(ability.ability.name);
-            let listItem = document.createElement("li");
+            let listItem = document.createElement('li');
             listItem.classList.add('ability');
             listItem.innerText = ability.ability.name;
             pokemonAbilities.appendChild(listItem);
@@ -221,7 +219,7 @@ let pokeRepo = (function() {
         //Height & Weight
 
         pokemonWeight.innerText = selectedPokemon.weight / 10 + ' KG';
-        pokemonHeight.innerText = selectedPokemon.height / 10 + " M";
+        pokemonHeight.innerText = selectedPokemon.height / 10 + ' M';
 
     };
 
@@ -247,30 +245,28 @@ pokeRepo.loadList().then(function() {
 let navi = (function() {
 
     let arrow = document.getElementById('arrow');
-    let state = "open"
+    let state = 'open'
     
     let open = () => { //Open bar and push content
-        document.getElementById('pkmn-list').style.width = "250px";
-        document.getElementById('main').style.marginLeft = "280px";
-        arrow.style.transform = "rotate(0deg)";
-        return state = "open";  
+        document.getElementById('pkmn-list').style.width = '250px';
+        document.getElementById('main').style.marginLeft = '280px';
+        arrow.style.transform = 'rotate(0deg)';
+        return state = 'open';  
         
     }
 
     let close = () => { //Close bar and pull content
-        document.getElementById('pkmn-list').style.width = "0";
-        document.getElementById('main').style.marginLeft = "30px";
-        arrow.style.transform = "rotate(180deg)";
-        return state = "close";
+        document.getElementById('pkmn-list').style.width = '0';
+        document.getElementById('main').style.marginLeft = '30px';
+        arrow.style.transform = 'rotate(180deg)';
+        return state = 'close';
     }
 
     let toggle = () => {
-        if (state === "close"){
+        if (state === 'close'){
                 open();
-                console.log('open')
         } else {
                close();
-               console.log('close')
         }
     }
 
