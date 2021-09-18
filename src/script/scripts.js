@@ -2,6 +2,7 @@
 let pokeRepo = (function() { 
     let pokemonList = [];
     let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
+    let svg = ''
 
 
     function add(item) {
@@ -84,7 +85,6 @@ let pokeRepo = (function() {
     
     let cardContainer = document.querySelector('#card');
     function showcard(selectedPokemon) {
-
         let pokemonTypes= cardContainer.querySelector('.type-list');
         let pokemonName = cardContainer.querySelector('.pkmn-name');
         let pokemonAbilities = cardContainer.querySelector('.ability-list');
@@ -222,6 +222,7 @@ let pokeRepo = (function() {
         pokemonHeight.innerText = selectedPokemon.height / 10 + ' M';
 
     };
+    
 
     return {
         add: add,
@@ -234,9 +235,10 @@ let pokeRepo = (function() {
 })();
 
 pokeRepo.loadList().then(function() {
+    pokeRepo.getAll().sort((a, b) => (a.url < b.url));
     for (let i = 0; i < pokeRepo.getAll().length; i++) {
         const element = pokeRepo.getAll()[i];
-        setTimeout(function(){pokeRepo.addListItem(element)},500);
+        pokeRepo.addListItem(element);
     }
 });
 
